@@ -1,25 +1,25 @@
+/* ================================================
+   Color Palette
+   #0F2854 – Deep navy (text, headings)
+   #1C4D8D – Royal blue (links, accents)
+   #4988C4 – Medium blue (grid borders, secondary)
+   #BDE8F5 – Ice blue (light bg, subtle fills)
+   ================================================ */
+
 :root {
-    --main-bg-color: #fff7e9;
-    --text-color: #3f5c72;
-    --header-text-color: var(--text-color);
-    --link-color: var(--text-color);
-    --highlight-color: #f05d2b;
-    --future-border: #dee2e6;
-    --future-bg-color: #eee;
+    --main-bg-color: #f7fbfd;
+    --text-color: #0F2854;
+    --header-text-color: #0F2854;
+    --link-color: #1C4D8D;
+    --highlight-color: #1C4D8D;
+    --accent-color: #4988C4;
+    --light-accent: #BDE8F5;
+    --future-border: #dce8f0;
+    --future-bg-color: #edf4f8;
     --body-font-size-desktop: 16px;
     --body-font-size-mobile: 12px;
-    --header-font-size-desktop: 72px;
-    --header-font-size-mobile: 36px;
-}
-
-@font-face {
-    font-family: redhatdisplay-medium;
-    src: url(/fonts/RedHatDisplay-Medium.ttf);
-}
-
-@font-face {
-    font-family: redhatdisplay-xtrabold;
-    src: url(/fonts/RedHatDisplay-ExtraBold.ttf);
+    --header-font-size-desktop: 48px;
+    --header-font-size-mobile: 28px;
 }
 
 *,
@@ -37,27 +37,29 @@
 }
 
 body {
-    font-family: redhatdisplay-medium, serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     font-optical-sizing: auto;
-    font-weight: 500;
+    font-weight: 400;
     font-size: var(--body-font-size-desktop);
     @media only screen and (max-width: 768px) {
         font-size: var(--body-font-size-mobile);
     }
     font-style: normal;
-    line-height: 1.5;
+    line-height: 1.6;
     color: var(--text-color);
-    background-color: inherit;
+    background-color: var(--main-bg-color);
+    letter-spacing: -0.01em;
 }
 
 h1 {
-    font-family: redhatdisplay-xtrabold, serif;
-    font-weight: 800;
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-weight: 700;
     font-size: var(--header-font-size-desktop);
     margin: 0;
     color: var(--header-text-color);
+    letter-spacing: -0.02em;
     @media only screen and (max-width: 768px) {
         font-size: var(--header-font-size-mobile);
     }
@@ -76,14 +78,15 @@ h1 a:hover {
 
 a {
     color: var(--link-color);
-    border-bottom: dotted var(--link-color) 1px;
+    border-bottom: dotted var(--accent-color) 1px;
     text-decoration: none;
+    transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 a:hover {
-    color: var(--highlight-color);
+    color: #0F2854;
     text-decoration: none;
-    border-bottom: solid var(--highlight-color) 1px;
+    border-bottom: solid #0F2854 1px;
 }
 
 .life-in-weeks {
@@ -103,6 +106,7 @@ a:hover {
     .btn {
         --bs-btn-color: var(--text-color);
         --bs-btn-font-size: var(--body-font-size-desktop);
+        font-family: "Inter", sans-serif;
     }
     blockquote {
         margin-top: 50px;
@@ -121,7 +125,7 @@ a:hover {
         text-decoration: none;
     }
     li a:hover {
-        color: var(--highlight-color);
+        color: #0F2854;
         text-decoration: none;
         border: none;
     }
@@ -157,22 +161,22 @@ a:hover {
 }
 
 .custom-tooltip {
-    --bs-tooltip-bg: var(--highlight-color);
-    --bs-tooltip-color: var(--bs-white);
+    --bs-tooltip-bg: #0F2854;
+    --bs-tooltip-color: #fff;
 }
 
-/* Modern Intro Card — does NOT affect grid layout */
+/* Modern Intro Card */
 .intro-card {
     display: flex;
     align-items: center;
     gap: 32px;
     margin: 20px 0 40px 0;
     padding: 28px;
-    background: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(12px);
-    border-radius: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
+    border-radius: 16px;
+    border: 1px solid rgba(73, 136, 196, 0.12);
+    box-shadow: 0 4px 24px rgba(15, 40, 84, 0.04);
 
     @media only screen and (max-width: 768px) {
         flex-direction: column;
@@ -188,8 +192,8 @@ a:hover {
     min-width: 120px;
     overflow: hidden;
     border-radius: 50%;
-    border: 4px solid #fff;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border: 3px solid #fff;
+    box-shadow: 0 4px 16px rgba(15, 40, 84, 0.1);
 
     img {
         width: 100%;
@@ -201,9 +205,10 @@ a:hover {
 
 .intro-text {
     flex: 1;
-    font-size: 1.15rem;
-    line-height: 1.65;
-    font-weight: 500;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    font-weight: 400;
+    color: var(--text-color);
 
     p {
         margin: 0;
