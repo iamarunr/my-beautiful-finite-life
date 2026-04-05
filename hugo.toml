@@ -1,4 +1,4 @@
-baseURL = 'https://weeks.ginatrapani.org/'
+baseURL = 'https://my-beautiful-finite-life.pages.dev'
 languageCode = 'en-us'
 title = 'My Life in Weeks'
 disableKinds = ["taxonomy", "taxonomy"]
