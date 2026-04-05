@@ -17,7 +17,46 @@
                             </div>
                             <div class="intro-text">
                                 {{ .Content }}
+
+                                {{- /* Compute life stats */ -}}
+                                {{ $startDate := time.AsTime .Params.start_date }}
+                                {{ $now := now }}
+                                {{ $endYear := .Params.end_year }}
+
+                                {{- /* Age in years */ -}}
+                                {{ $ageYears := sub $now.Year $startDate.Year }}
+                                {{ if or (lt $now.Month $startDate.Month) (and (eq (int $now.Month) (int $startDate.Month)) (lt $now.Day $startDate.Day)) }}
+                                    {{ $ageYears = sub $ageYears 1 }}
+                                {{ end }}
+
+                                {{- /* Weeks calculation */ -}}
+                                {{ $endDateStr := printf "%d-%02d-%02d" $endYear (int $startDate.Month) $startDate.Day }}
+                                {{ $endDate := time.AsTime $endDateStr }}
+                                {{ $totalDays := int (div (sub $endDate.Unix $startDate.Unix) 86400) }}
+                                {{ $elapsedDays := int (div (sub $now.Unix $startDate.Unix) 86400) }}
+                                {{ $totalWeeks := int (div $totalDays 7) }}
+                                {{ $elapsedWeeks := int (div $elapsedDays 7) }}
+                                {{ $remainingWeeks := sub $totalWeeks $elapsedWeeks }}
+                                {{ $pct := int (div (mul $elapsedWeeks 100) $totalWeeks) }}
+                                {{ $currentWeek := add $elapsedWeeks 1 }}
+
+                                <div class="life-stats">
+                                    <div class="life-stats-text">
+                                        ☀️ <strong>{{ $ageYears }}</strong> trips around the sun · Week <strong>#{{ $currentWeek }}</strong> of my life
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar-fill" style="width: {{ $pct }}%"></div>
+                                    </div>
+                                    <div class="progress-bar-labels">
+                                        <span>{{ lang.FormatNumber 0 $elapsedWeeks }} weeks lived · {{ lang.FormatNumber 0 $remainingWeeks }} weeks remaining</span>
+                                        <span class="progress-pct">{{ $pct }}% of life lived</span>
+                                    </div>
+                                    <div class="progress-bar-note">Based on CDC life expectancy of a male in the USA</div>
+                                </div>
                             </div>
+                            <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+                                <span class="toggle-icon">🌙</span>
+                            </button>
                         </div>
                     </div>
                 </div>

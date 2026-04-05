@@ -31,6 +31,7 @@
     margin: 0;
     padding: 0;
     scroll-padding-top: 70px;
+
     @media only screen and (max-width: 768px) {
         scroll-padding-top: 62px;
     }
@@ -43,9 +44,11 @@ body {
     font-optical-sizing: auto;
     font-weight: 400;
     font-size: var(--body-font-size-desktop);
+
     @media only screen and (max-width: 768px) {
         font-size: var(--body-font-size-mobile);
     }
+
     font-style: normal;
     line-height: 1.6;
     color: var(--text-color);
@@ -58,16 +61,22 @@ h1 {
     font-weight: 700;
     font-size: var(--header-font-size-desktop);
     margin: 0;
+    padding-top: 32px;
+    text-align: center;
     color: var(--header-text-color);
     letter-spacing: -0.02em;
+
     @media only screen and (max-width: 768px) {
         font-size: var(--header-font-size-mobile);
+        padding-top: 20px;
     }
+
     transition: all 0.25s;
 }
 
 h1.tiny {
     font-size: var(--header-font-size-mobile);
+    padding-top: 8px;
     transition: all 0.25s;
 }
 
@@ -92,70 +101,138 @@ a:hover {
 .life-in-weeks {
     border-radius: 5px;
     margin: 0 20% 40% 20%;
+
+    /* Title separator — decorative em dash */
+    .title-separator {
+        text-align: center;
+        font-size: 1.4rem;
+        color: var(--accent-color);
+        opacity: 0.4;
+        margin: 6px 0;
+        letter-spacing: 0.3em;
+        transition: all 0.3s ease;
+    }
+
+    h1.tiny ~ .title-separator {
+        font-size: 0;
+        opacity: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .tagline {
+        font-size: 1rem;
+        font-weight: 400;
+        color: var(--text-color);
+        opacity: 0.5;
+        margin: 0 0 12px 0;
+        letter-spacing: 0.06em;
+        font-style: italic;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    h1.tiny ~ .tagline {
+        font-size: 0;
+        opacity: 0;
+        margin: 0;
+    }
+
     .future-date {
         background-color: var(--future-bg-color) !important;
         border-color: var(--future-border) !important;
     }
+
     .week,
     .birthday {
         height: 2em;
         max-height: 2em;
         padding: 2px 5px;
         margin: 2px 1px;
+        border: 1px solid #c0d0dc;
+        background-color: transparent;
+        border-radius: 0;
     }
+
+    /* Events and birthdays get solid prominent borders */
+    .has-event,
+    .birthday {
+        border: 1.5px solid #555;
+        background-color: #fff;
+    }
+
     .btn {
         --bs-btn-color: var(--text-color);
         --bs-btn-font-size: var(--body-font-size-desktop);
         font-family: "Inter", sans-serif;
+        border-radius: 0;
     }
+
     blockquote {
         margin-top: 50px;
     }
+
     @media only screen and (max-width: 768px) {
         margin: 0 2%;
+
         .btn {
             --bs-btn-font-size: var(--body-font-size-mobile);
         }
     }
+
     li {
         list-style-type: none;
     }
+
     li a {
         color: var(--link-color);
         text-decoration: none;
     }
+
     li a:hover {
         color: #0F2854;
         text-decoration: none;
         border: none;
     }
+
     @keyframes fadeIn {
         from {
             opacity: 0;
             transform: translateY(20px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
         }
     }
+
     .navbar {
         --bs-navbar-padding-y: 0;
         margin-bottom: 2em;
         display: none;
         opacity: 0;
         animation: fadeIn 0.5s ease-out forwards;
+
         .nav-pills {
             --bs-nav-pills-border-radius: 0;
             --bs-nav-pills-link-active-bg: var(--main-bg-color);
             --bs-nav-link-padding-x: 0.5rem;
+
             @media only screen and (max-width: 768px) {
                 --bs-nav-link-padding-x: 0.35rem;
             }
+
             --bs-nav-link-padding-y: 0;
             --bs-nav-link-color: var(--highlight-color);
             --bs-nav-pills-link-active-color: var(--highlight-color);
             border-bottom: solid var(--highlight-color) 1px;
+
+            .nav-link.decade-active {
+                font-weight: 700;
+                border-bottom: 3px solid var(--text-color);
+                color: var(--text-color);
+            }
         }
     }
 }
@@ -163,6 +240,25 @@ a:hover {
 .custom-tooltip {
     --bs-tooltip-bg: #0F2854;
     --bs-tooltip-color: #fff;
+}
+
+/* Decade Section Headers */
+.decade-header {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 24px 0 16px 0;
+    padding: 12px 0 8px 0.75rem;
+    letter-spacing: -0.01em;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--main-bg-color);
+
+    &:first-child {
+        margin-top: 8px;
+    }
 }
 
 /* Modern Intro Card */
@@ -212,5 +308,307 @@ a:hover {
 
     p {
         margin: 0;
+    }
+}
+
+/* Life Stats — Progress bar and counters */
+.life-stats {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(73, 136, 196, 0.12);
+}
+
+.life-stats-text {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+
+    strong {
+        font-weight: 700;
+        color: var(--highlight-color);
+    }
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(73, 136, 196, 0.12);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--highlight-color), var(--accent-color));
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+.progress-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 0.82rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.progress-pct {
+    font-weight: 600;
+    opacity: 1;
+    color: var(--highlight-color);
+}
+
+.progress-bar-note {
+    font-size: 0.72rem;
+    color: var(--text-color);
+    opacity: 0.45;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* ================================================
+   Color Legend
+   ================================================ */
+.color-legend {
+    display: flex;
+    gap: 32px;
+    margin: 0 0 24px 0;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    border: 1px solid rgba(73, 136, 196, 0.08);
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+
+    @media only screen and (max-width: 768px) {
+        flex-direction: column;
+        gap: 16px;
+        padding: 12px 16px;
+    }
+}
+
+.legend-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.legend-title {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+    min-width: 56px;
+}
+
+.legend-items {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-swatch {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.legend-swatch--border {
+    background: transparent;
+    border: 2.5px solid currentColor;
+}
+
+.legend-swatch--bg {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.legend-label {
+    color: var(--text-color);
+    opacity: 0.75;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* ================================================
+   Today Marker — pulsing glow on current week
+   ================================================ */
+@keyframes todayPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(28, 77, 141, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 0 4px rgba(28, 77, 141, 0.15);
+    }
+}
+
+.today-marker {
+    border: 2px solid #1C4D8D !important;
+    background-color: rgba(189, 232, 245, 0.3) !important;
+    animation: todayPulse 2s ease-in-out infinite;
+    z-index: 10;
+    position: relative;
+}
+
+/* ================================================
+   Dark Mode Toggle Button
+   ================================================ */
+.dark-mode-toggle {
+    background: transparent;
+    border: 1px solid rgba(73, 136, 196, 0.2);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+
+    &:hover {
+        background: rgba(73, 136, 196, 0.1);
+        border-color: var(--accent-color);
+        transform: scale(1.05);
+    }
+
+    .toggle-icon {
+        font-size: 18px;
+        line-height: 1;
+        background: transparent;
+    }
+}
+
+/* ================================================
+   Dark Mode Theme
+   ================================================ */
+[data-theme="dark"] {
+    --main-bg-color: #0d1117;
+    --text-color: #d0d7de;
+    --header-text-color: #e6edf3;
+    --link-color: #79c0ff;
+    --highlight-color: #58a6ff;
+    --accent-color: #79c0ff;
+    --future-border: #1c2433;
+    --future-bg-color: #0d1117;
+
+    .intro-card {
+        background: transparent;
+        border-color: transparent;
+        box-shadow: none;
+    }
+
+    .profile-photo {
+        border-color: rgba(88, 166, 255, 0.25);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Life stats in dark mode */
+    .life-stats {
+        border-top-color: rgba(48, 54, 61, 0.6);
+    }
+
+    .progress-bar-container {
+        background: rgba(48, 54, 61, 0.6);
+    }
+
+    .progress-bar-fill {
+        background: linear-gradient(90deg, #58a6ff, #79c0ff);
+    }
+
+    .color-legend {
+        background: rgba(22, 27, 34, 0.6);
+        border-color: rgba(48, 54, 61, 0.4);
+    }
+
+    .legend-swatch--border {
+        opacity: 0.85;
+    }
+
+    .legend-swatch--bg {
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .dark-mode-toggle {
+        border-color: rgba(48, 54, 61, 0.6);
+
+        &:hover {
+            background: rgba(88, 166, 255, 0.1);
+            border-color: rgba(88, 166, 255, 0.3);
+        }
+    }
+
+    .life-in-weeks {
+        /* Fix text color — make ALL button text readable */
+        .btn {
+            --bs-btn-color: var(--text-color);
+            color: var(--text-color);
+        }
+
+        /* Subtle empty week boxes */
+        .week,
+        .birthday {
+            border-color: rgba(48, 54, 61, 0.5);
+            background-color: transparent;
+        }
+
+        /* Prominent event & birthday boxes */
+        .has-event,
+        .birthday {
+            border-color: rgba(139, 148, 158, 0.5);
+            background-color: rgba(22, 27, 34, 0.7);
+            color: var(--text-color);
+        }
+    }
+
+    /* Navbar in dark mode */
+    .navbar .nav-pills {
+        border-bottom-color: rgba(48, 54, 61, 0.6);
+
+        .nav-link.decade-active {
+            border-bottom-color: #58a6ff;
+            color: #e6edf3;
+        }
+    }
+
+    a:hover {
+        color: #79c0ff;
+        border-bottom-color: #79c0ff;
+    }
+
+    .custom-tooltip {
+        --bs-tooltip-bg: #1c2433;
+    }
+
+    .today-marker {
+        border-color: #58a6ff !important;
+        background-color: rgba(88, 166, 255, 0.15) !important;
+    }
+
+    @keyframes todayPulse {
+        0%,
+        100% {
+            box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.4);
+        }
+
+        50% {
+            box-shadow: 0 0 0 4px rgba(88, 166, 255, 0.1);
+        }
     }
 }

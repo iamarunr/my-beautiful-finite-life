@@ -14,6 +14,18 @@
                     $(this).attr("data-bs-toggle", null);
                 }
             });
+
+            // Today Marker — highlight the current week's box
+            var todayMs = today.getTime();
+            $("[data-date]").each(function () {
+                var boxDate = new Date($(this).attr("data-date"));
+                var nextWeek = new Date(boxDate);
+                nextWeek.setDate(nextWeek.getDate() + 7);
+                if (todayMs >= boxDate.getTime() && todayMs < nextWeek.getTime()) {
+                    $(this).addClass("today-marker");
+                }
+            });
+
             const tooltipTriggerList = $('[data-bs-toggle="tooltip"]',);
             const tooltipList = [...tooltipTriggerList].map(
                 (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl),
@@ -23,5 +35,58 @@
             $("h1").toggleClass("tiny", $(document).scrollTop() > 0);
             $(".navbar").toggleClass("d-block", $(document).scrollTop() > 200);
         });
+
+        // Dark Mode Toggle
+        var darkToggle = document.getElementById("dark-mode-toggle");
+        var toggleIcon = darkToggle ? darkToggle.querySelector(".toggle-icon") : null;
+
+        // Check saved preference
+        if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.setAttribute("data-theme", "dark");
+            if (toggleIcon) toggleIcon.textContent = "☀️";
+        }
+
+        if (darkToggle) {
+            darkToggle.addEventListener("click", function () {
+                var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+                if (isDark) {
+                    document.documentElement.removeAttribute("data-theme");
+                    localStorage.setItem("theme", "light");
+                    toggleIcon.textContent = "🌙";
+                } else {
+                    document.documentElement.setAttribute("data-theme", "dark");
+                    localStorage.setItem("theme", "dark");
+                    toggleIcon.textContent = "☀️";
+                }
+            });
+        }
+
+        // Scroll Spy — highlight active decade in navbar
+        var decadeSections = document.querySelectorAll('[id^="decade-"]');
+        var navLinks = document.querySelectorAll('.nav-pills .nav-link');
+
+        if (decadeSections.length && navLinks.length) {
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var activeId = entry.target.id;
+                        navLinks.forEach(function(link) {
+                            if (link.getAttribute('href') === '#' + activeId) {
+                                link.classList.add('decade-active');
+                            } else {
+                                link.classList.remove('decade-active');
+                            }
+                        });
+                    }
+                });
+            }, {
+                rootMargin: '-80px 0px -70% 0px',
+                threshold: 0
+            });
+
+            decadeSections.forEach(function(section) {
+                observer.observe(section);
+            });
+        }
     });
 </script>

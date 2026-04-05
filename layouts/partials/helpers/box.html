@@ -1,3 +1,13 @@
+{{ $link := $.Store.Get "buttonLink" }}{{ if and $link (ne $link "") -}}
+<a href="{{ $link }}" target="_blank" rel="noopener noreferrer"
+    class="{{ $.Store.Get "buttonClass" }}"
+    data-date="{{ $.Store.Get "buttonDataDate" }}"
+    data-bs-toggle="tooltip"
+    data-bs-placement="bottom"
+    data-bs-custom-class="custom-tooltip"
+    data-bs-title="{{ $.Store.Get "buttonDataBSTitle" }}"
+    style="text-decoration: none;">{{ $.Store.Get "buttonLabel" }}</a>
+{{- else -}}
 <button type="button"
     class="{{ $.Store.Get "buttonClass" }}"
     data-date="{{ $.Store.Get "buttonDataDate" }}"
@@ -5,3 +15,4 @@
     data-bs-placement="bottom"
     data-bs-custom-class="custom-tooltip"
     data-bs-title="{{ $.Store.Get "buttonDataBSTitle" }}">{{ $.Store.Get "buttonLabel" }}</button>
+{{- end }}
